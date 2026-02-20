@@ -209,7 +209,7 @@
             <!-- Welcome Message -->
             <div class="text-center space-y-2 py-4">
                 <h2 class="text-3xl font-bold text-primary italic">¡Bienvenid@ de vuelta, <span
-                        id="user-display-name">Javier</span>!</h2>
+                        id="user-display-name">...</span>!</h2>
                 <p class="text-slate-500 font-medium">Gestiona y organiza todos tus eventos fotográficos desde un solo
                     lugar.</p>
             </div>
@@ -524,6 +524,28 @@
                 submitBtn.innerText = 'Crear Evento';
             }
         };
+
+        // Set greeting name from localStorage (fast path) then refresh from API
+        const storedName = localStorage.getItem('userName');
+        const userId = localStorage.getItem('userId');
+        const displayNameEl = document.getElementById('user-display-name');
+
+        if (storedName) {
+            displayNameEl.textContent = storedName.split(' ')[0]; // First name only
+        }
+
+        if (userId) {
+            fetch(`/api/user/${userId}`)
+                .then(r => r.ok ? r.json() : null)
+                .then(data => {
+                    if (data && data.name) {
+                        const firstName = data.name.split(' ')[0];
+                        displayNameEl.textContent = firstName;
+                        localStorage.setItem('userName', data.name);
+                    }
+                })
+                .catch(() => { }); // silently ignore errors
+        }
 
         // Initial Load
         loadEvents();
