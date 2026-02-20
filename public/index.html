@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Stitch - Bienvenido</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#bd2bee',
+                        'primary-dark': '#9a1fcc',
+                    },
+                    fontFamily: {
+                        sans: ['Spline Sans', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Spline Sans', sans-serif;
+            background: #0d0d1a;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-glow {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.25;
+            animation: drift 10s ease-in-out infinite alternate;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: #bd2bee;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #6d28d9;
+            bottom: -80px;
+            right: -100px;
+            animation-delay: 3s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: #db2777;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 6s;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(30px, 30px) scale(1.1);
+            }
+        }
+
+        /* Glass card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
+            box-shadow:
+                0 32px 64px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        /* QR container */
+        .qr-wrap {
+            background: white;
+            border-radius: 20px;
+            padding: 16px;
+            display: inline-block;
+            box-shadow:
+                0 8px 32px rgba(189, 43, 238, 0.4),
+                0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Pulse ring around QR */
+        .qr-ring {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-ring::before {
+            content: '';
+            position: absolute;
+            inset: -12px;
+            border-radius: 28px;
+            border: 2px solid rgba(189, 43, 238, 0.5);
+            animation: pulseRing 2.5s ease-in-out infinite;
+        }
+
+        .qr-ring::after {
+            content: '';
+            position: absolute;
+            inset: -24px;
+            border-radius: 36px;
+            border: 1px solid rgba(189, 43, 238, 0.25);
+            animation: pulseRing 2.5s ease-in-out infinite 0.5s;
+        }
+
+        @keyframes pulseRing {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(1.06);
+            }
+        }
+
+        /* CTA Button */
+        .btn-login {
+            background: linear-gradient(135deg, #bd2bee, #9a1fcc);
+            border-radius: 14px;
+            padding: 16px 40px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(189, 43, 238, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(189, 43, 238, 0.6);
+            background: linear-gradient(135deg, #c940f5, #bd2bee);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        /* Logo shimmer */
+        .logo-text {
+            background: linear-gradient(135deg, #fff 0%, #e879f9 50%, #fff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 200% center;
+            }
+
+            100% {
+                background-position: -200% center;
+            }
+        }
+
+        /* Floating badge */
+        .badge-scan {
+            background: rgba(189, 43, 238, 0.2);
+            border: 1px solid rgba(189, 43, 238, 0.4);
+            border-radius: 50px;
+            padding: 6px 16px;
+            color: #e879f9;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+
+<body class="flex items-center justify-center min-h-screen">
+
+    <!-- Animated background -->
+    <div class="bg-glow">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <!-- Main Card -->
+    <div class="glass-card relative z-10 p-8 sm:p-12 max-w-sm w-full mx-4 text-center">
+
+        <!-- Logo -->
+        <div class="mb-2">
+            <span class="text-5xl font-extrabold logo-text tracking-tight">Stitch</span>
+        </div>
+        <p class="text-white/50 text-sm mb-8">Tu plataforma de eventos</p>
+
+        <!-- Badge -->
+        <div class="flex justify-center mb-6">
+            <span class="badge-scan">📷 Escanear para registrarse</span>
+        </div>
+
+        <!-- QR Code -->
+        <div class="flex justify-center mb-8">
+            <div class="qr-ring">
+                <div class="qr-wrap">
+                    <canvas id="qrCanvas"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-white/40 text-xs mb-8">
+            Apuntá tu cámara al código QR para crear tu cuenta
+        </p>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-4 mb-6">
+            <div class="h-px flex-1 bg-white/10"></div>
+            <span class="text-white/30 text-xs font-medium">O</span>
+            <div class="h-px flex-1 bg-white/10"></div>
+        </div>
+
+        <!-- Login Button -->
+        <a href="/login.html" class="btn-login" id="login-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                <polyline points="10 17 15 12 10 7" />
+                <line x1="15" y1="12" x2="3" y2="12" />
+            </svg>
+            Ingresar
+        </a>
+
+        <!-- Register link -->
+        <p class="text-white/30 text-xs mt-4">
+            ¿Sin cuenta? <a href="/register.html"
+                class="text-purple-400 hover:text-purple-300 transition-colors font-medium">Registrate aquí</a>
+        </p>
+    </div>
+
+    <script>
+        // Generate QR code pointing to registration page
+        const registerUrl = window.location.origin + '/register.html';
+
+        QRCode.toCanvas(
+            document.getElementById('qrCanvas'),
+            registerUrl,
+            {
+                width: 200,
+                margin: 1,
+                color: {
+                    dark: '#0d0d1a',
+                    light: '#ffffff'
+                }
+            },
+            (err) => {
+                if (err) console.error('QR Error:', err);
+            }
+        );
+    </script>
+</body>
+
+</html>

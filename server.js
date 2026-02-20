@@ -54,7 +54,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Root route redirect
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 
