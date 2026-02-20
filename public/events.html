@@ -527,15 +527,15 @@
 
         // Set greeting name from localStorage (fast path) then refresh from API
         const storedName = localStorage.getItem('userName');
-        const userId = localStorage.getItem('userId');
+        const storedUserId = localStorage.getItem('userId');
         const displayNameEl = document.getElementById('user-display-name');
 
         if (storedName) {
             displayNameEl.textContent = storedName.split(' ')[0]; // First name only
         }
 
-        if (userId) {
-            fetch(`/api/user/${userId}`)
+        if (storedUserId) {
+            fetch(`/api/user/${storedUserId}`)
                 .then(r => r.ok ? r.json() : null)
                 .then(data => {
                     if (data && data.name) {
