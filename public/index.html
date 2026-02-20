@@ -8,7 +8,6 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -257,7 +256,8 @@
         <div class="flex justify-center mb-8">
             <div class="qr-ring">
                 <div class="qr-wrap">
-                    <canvas id="qrCanvas"></canvas>
+                    <img id="qrImg" width="200" height="200" alt="QR de registro"
+                        style="display:block;border-radius:8px;" />
                 </div>
             </div>
         </div>
@@ -292,24 +292,10 @@
     </div>
 
     <script>
-        // Generate QR code pointing to registration page
+        // Use QR Server API - reliable and no JS library needed
         const registerUrl = window.location.origin + '/register.html';
-
-        QRCode.toCanvas(
-            document.getElementById('qrCanvas'),
-            registerUrl,
-            {
-                width: 200,
-                margin: 1,
-                color: {
-                    dark: '#0d0d1a',
-                    light: '#ffffff'
-                }
-            },
-            (err) => {
-                if (err) console.error('QR Error:', err);
-            }
-        );
+        const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=0d0d1a&bgcolor=ffffff&data=${encodeURIComponent(registerUrl)}&qzone=1`;
+        document.getElementById('qrImg').src = qrApiUrl;
     </script>
 </body>
 
