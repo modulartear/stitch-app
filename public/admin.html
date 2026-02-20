@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Panel de Moderación de Eventos</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#bd2bee",
+                    },
+                    fontFamily: {
+                        display: ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Spline Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .bg-white {
+            background-color: #ffffff;
+        }
+
+        .bg-white\/80 {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .bg-white\/50 {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+    <style>
+        body {
+            font-family: 'Spline Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: max(100dvh, 884px);
+        }
+
+        .bg-main-bg {
+            background-color: #f8fafc;
+        }
+
+        .bg-sidebar-bg {
+            background-color: #ffffff;
+        }
+
+        .bg-white {
+            background-color: #ffffff;
+        }
+
+        .bg-white\/80 {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .bg-white\/50 {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .text-slate-800,
+        .text-slate-700 {
+            color: #1e293b;
+        }
+
+        .text-slate-500,
+        .text-slate-400 {
+            color: #64748b;
+        }
+
+        .border-primary\/20,
+        .border-primary\/10,
+        .border-slate-200 {
+            border-color: #f1f5f9;
+        }
+    </style>
+</head>
+
+<body class="bg-main-bg text-slate-900 min-h-screen flex flex-col font-display">
+    <!-- Header -->
+    <header
+        class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-primary/20 px-4 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <i data-lucide="camera" class="text-primary size-6"></i>
+            <h1 class="text-xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                Stitch Admin</h1>
+        </div>
+        <div class="flex items-center gap-3">
+            <button class="relative p-2 hover:bg-slate-100 rounded-full transition-colors">
+                <i data-lucide="bell" class="text-slate-600"></i>
+                <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+            </button>
+            <button onclick="downloadAllApproved()"
+                class="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg font-bold hover:bg-primary/90 transition-all active:scale-95 shadow-lg shadow-primary/20">
+                <i data-lucide="download" class="size-4"></i>
+                Descargar Todo
+            </button>
+        </div>
+    </header>
+    <main class="flex-1 overflow-y-auto pb-24">
+        <!-- Quick Stats Grid -->
+        <section class="p-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white/50 backdrop-blur-sm border border-primary/10 p-4 rounded-2xl">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i data-lucide="image" class="text-primary size-5"></i>
+                        <span class="text-slate-500 text-sm font-medium">Fotos Totales</span>
+                    </div>
+                    <div id="stat-total" class="text-2xl font-bold text-slate-800">0</div>
+                </div>
+                <div class="bg-white/50 backdrop-blur-sm border border-primary/10 p-4 rounded-2xl">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i data-lucide="users" class="text-primary size-5"></i>
+                        <span class="text-slate-500 text-sm font-medium">Usuarios</span>
+                    </div>
+                    <div id="stat-users" class="text-2xl font-bold text-slate-800">0</div>
+                </div>
+                <div class="bg-white/50 backdrop-blur-sm border border-primary/10 p-4 rounded-2xl">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i data-lucide="printer" class="text-primary size-5"></i>
+                        <span class="text-slate-500 text-sm font-medium">Impresiones</span>
+                    </div>
+                    <div id="stat-prints" class="text-2xl font-bold text-slate-800">0</div>
+                </div>
+                <div class="bg-white/50 backdrop-blur-sm border border-primary/10 p-4 rounded-2xl">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i data-lucide="clipboard-list" class="text-primary size-5"></i>
+                        <span class="text-slate-500 text-sm font-medium">Pendientes</span>
+                    </div>
+                    <div id="stat-pending-top" class="text-2xl font-bold text-primary">0</div>
+                </div>
+            </div>
+        </section>
+        <!-- Live Controls Section -->
+        <section class="px-4 mb-6">
+            <div class="bg-primary/5 rounded-xl p-4 flex flex-col gap-4 border border-primary/10">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-green-500/10 p-2 rounded-full">
+                            <span class="material-symbols-outlined text-green-600">&#xe51e;</span>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800">Servidor de Moderación</p>
+                            <p class="text-xs text-slate-500">Sistema activo y recibiendo fotos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Moderation Queue Tabs -->
+        <div class="px-4 flex gap-4 border-b border-slate-100 mb-4 sticky top-[80px] bg-background-light z-40">
+            <button class="pb-3 border-b-2 border-primary text-primary font-bold text-sm">Pendientes</button>
+        </div>
+        <!-- Moderation Cards -->
+        <section id="moderation-queue" class="px-4 space-y-4">
+            <!-- Pending items will be injected here -->
+        </section>
+    </main>
+    <!-- Bottom Navigation Bar -->
+    <nav
+        class="fixed bottom-0 left-0 right-0 glass-effect border-t border-slate-100 pb-8 pt-2 px-6 flex justify-between items-center z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+        <a class="flex flex-col items-center gap-1 group" href="#">
+            <div
+                class="bg-primary text-white p-2 rounded-full shadow-lg shadow-primary/30 transition-transform group-hover:scale-110">
+                <span class="material-symbols-outlined font-fill text-[24px]">&#xe8e8;</span>
+            </div>
+            <p class="text-[10px] font-bold text-primary uppercase tracking-widest tracking-tighter">Moderación</p>
+        </a>
+        <a class="flex flex-col items-center gap-1 group opacity-40 hover:opacity-100 transition-opacity"
+            href="/guest.html">
+            <div class="p-2 rounded-full transition-transform group-hover:scale-110">
+                <span class="material-symbols-outlined text-slate-600 text-[24px]">&#xe7fd;</span>
+            </div>
+            <p class="text-[10px] font-bold text-slate-800 uppercase tracking-widest tracking-tighter">Vista Invitado
+            </p>
+        </a>
+        <a class="flex flex-col items-center gap-1 group opacity-40 hover:opacity-100 transition-opacity"
+            href="/kiosk.html">
+            <div class="p-2 rounded-full transition-transform group-hover:scale-110">
+                <span class="material-symbols-outlined text-slate-600 text-[24px]">&#xe8d1;</span>
+            </div>
+            <p class="text-[10px] font-bold text-slate-800 uppercase tracking-widest tracking-tighter">Kiosco</p>
+        </a>
+    </nav>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        lucide.createIcons();
+
+        const pendingItemsGrid = document.getElementById('moderation-queue');
+        const statTotal = document.getElementById('stat-total');
+        const statPending = document.getElementById('stat-pending-top'); // Updated ID
+
+        socket.on('stats_update', (stats) => {
+            document.getElementById('stat-total').innerText = stats.total;
+            document.getElementById('stat-users').innerText = stats.users;
+            document.getElementById('stat-prints').innerText = stats.prints;
+            document.getElementById('stat-pending-top').innerText = stats.pending;
+        });
+
+        const loadPending = async () => {
+            const res = await fetch('/api/media?status=pending');
+            const items = await res.json();
+            queue.innerHTML = '';
+            items.forEach(addItemToQueue);
+            // updateStats(); // Removed as stats are updated via socket
+        };
+
+        const addItemToQueue = (item) => {
+            const div = document.createElement('div');
+            div.id = `item-${item.id}`;
+            div.className = 'bg-white rounded-2xl overflow-hidden border border-slate-100 flex flex-col sm:flex-row shadow-sm';
+            div.innerHTML = `
+            <div class="relative aspect-square sm:w-48 overflow-hidden">
+                <img class="w-full h-full object-cover" src="${item.url}" />
+                <div class="absolute top-2 left-2 bg-white/70 backdrop-blur-md px-2 py-1 rounded text-[10px] font-bold text-slate-800 uppercase">
+                    PENDIENTE
+                </div>
+            </div>
+            <div class="p-4 flex flex-col justify-between flex-1">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <p class="font-bold text-slate-800">Por: ${item.author}</p>
+                        <p class="text-sm text-slate-500">Nueva foto enviada para moderación.</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                            <button onclick="approveItem('${item.id}')" class="flex-1 bg-green-500 text-white font-bold py-3 rounded-xl hover:bg-green-600 transition-all shadow-lg shadow-green-500/20 active:scale-95 flex items-center justify-center gap-2">
+                                <i data-lucide="check-circle" class="size-5"></i>
+                                Aprobar
+                            </button>
+                            <button onclick="rejectItem('${item.id}')" class="flex-1 bg-red-500 text-white font-bold py-3 rounded-xl hover:bg-red-600 transition-all shadow-lg shadow-red-500/20 active:scale-95 flex items-center justify-center gap-2">
+                                <i data-lucide="x-circle" class="size-5"></i>
+                                Rechazar
+                            </button>
+                </div>
+            </div>
+        `;
+            queue.prepend(div);
+        };
+
+        const moderate = async (id, status) => {
+            const response = await fetch(`/api/moderate/${id}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status })
+            });
+            if (response.ok) {
+                const el = document.getElementById(`item-${id}`);
+                if (el) el.remove();
+                updateStats();
+            }
+        };
+
+        socket.on('new_pending_item', (item) => {
+            addItemToQueue(item);
+            updateStats();
+        });
+
+        loadPending();
+    </script>
+    <!-- Background Decoration -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 opacity-5">
+        <div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary rounded-full blur-[100px]"></div>
+    </div>
+</body>
+
+</html>

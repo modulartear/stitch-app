@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Event Moderator Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#bd2bee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1d1022",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Spline Sans', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-white min-h-screen flex flex-col font-display">
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-background-dark/80 backdrop-blur-md border-b border-primary/20 px-4 py-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+</div>
+<div>
+<h1 class="text-lg font-bold leading-none">Gala Anual 2024</h1>
+<p class="text-xs text-primary/70 font-medium">Moderación en Vivo</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="bg-primary/10 hover:bg-primary/20 text-primary p-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="bg-primary hover:bg-primary/80 text-white px-3 py-1.5 rounded-lg text-sm font-semibold flex items-center gap-1 transition-all">
+<span class="material-symbols-outlined text-sm">download</span>
+                Descargar Todo
+            </button>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto pb-24">
+<!-- Quick Stats Grid -->
+<section class="p-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+<div class="bg-primary/5 border border-primary/10 p-4 rounded-xl">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-primary text-xl">photo_library</span>
+<span class="text-[10px] font-bold text-green-400 bg-green-400/10 px-1.5 py-0.5 rounded-full">+12%</span>
+</div>
+<p class="text-2xl font-bold">1,284</p>
+<p class="text-xs text-white/50 uppercase tracking-wider font-semibold">Fotos</p>
+</div>
+<div class="bg-primary/5 border border-primary/10 p-4 rounded-xl">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-primary text-xl">group</span>
+<span class="text-[10px] font-bold text-green-400 bg-green-400/10 px-1.5 py-0.5 rounded-full">+5%</span>
+</div>
+<p class="text-2xl font-bold">86</p>
+<p class="text-xs text-white/50 uppercase tracking-wider font-semibold">Invitados</p>
+</div>
+<div class="bg-primary/5 border border-primary/10 p-4 rounded-xl">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-primary text-xl">print</span>
+<span class="text-[10px] font-bold text-white/30 bg-white/5 px-1.5 py-0.5 rounded-full">0%</span>
+</div>
+<p class="text-2xl font-bold">42</p>
+<p class="text-xs text-white/50 uppercase tracking-wider font-semibold">Impresiones</p>
+</div>
+<div class="bg-primary/5 border border-primary/10 p-4 rounded-xl">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-primary text-xl">pending_actions</span>
+<span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+</div>
+<p class="text-2xl font-bold">14</p>
+<p class="text-xs text-white/50 uppercase tracking-wider font-semibold">Pendientes</p>
+</div>
+</section>
+<!-- Live Controls Section -->
+<section class="px-4 mb-6">
+<div class="bg-[#2d1933] rounded-xl p-4 flex flex-col gap-4 border border-primary/20">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-green-500/20 p-2 rounded-full">
+<span class="material-symbols-outlined text-green-500">sensors</span>
+</div>
+<div>
+<p class="font-bold">Proyectar en Vivo</p>
+<p class="text-xs text-white/60">Streaming activo en pantalla principal</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="h-px bg-white/5"></div>
+<button class="w-full flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-full">
+<span class="material-symbols-outlined text-primary">monitor</span>
+</div>
+<p class="font-medium">Configuración de Pantallas</p>
+</div>
+<span class="material-symbols-outlined text-white/30 group-hover:text-primary transition-colors">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Moderation Queue Tabs -->
+<div class="px-4 flex gap-4 border-b border-primary/10 mb-4 sticky top-[80px] bg-background-dark z-40">
+<button class="pb-3 border-b-2 border-primary text-primary font-bold text-sm">Pendientes (14)</button>
+<button class="pb-3 border-b-2 border-transparent text-white/40 font-bold text-sm hover:text-white/60">Aprobados</button>
+<button class="pb-3 border-b-2 border-transparent text-white/40 font-bold text-sm hover:text-white/60">Rechazados</button>
+</div>
+<!-- Moderation Cards -->
+<section class="px-4 space-y-4">
+<!-- Item 1 -->
+<div class="bg-white/5 rounded-2xl overflow-hidden border border-white/5 flex flex-col sm:flex-row">
+<div class="relative aspect-square sm:w-48 overflow-hidden">
+<img alt="Guest taking a photo at a wedding" class="w-full h-full object-cover" data-alt="Happy guests smiling at a formal event party" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6mALQ0Ecdv8SOhhM9I6cMzqxCALUhbnW2l4c23gbvB-VRLARmGR7RfpSx_vUXIlE27EQfVqQia3PJgGkq3DHP_JfwdtQ8uaqnURl4GHQdms-g0vqfJBJJYgDEJVR2g0yU8wOsJq6v1AKa-_KgSL_4W0d01ViIC9PgWOj721FurmGzNwMLNSI5R2Oq0Od01vENIWcGaafg4trvkNV1_jHpzVnqDOgI7hUHVKzYdiQsu17FqkSDo8740kxzDcQtYg_pubsiUCgnMjQ"/>
+<div class="absolute top-2 left-2 bg-black/50 backdrop-blur-md px-2 py-1 rounded text-[10px] font-bold">
+                        HACE 2 MIN
+                    </div>
+</div>
+<div class="p-4 flex flex-col justify-between flex-1">
+<div class="flex items-start justify-between">
+<div>
+<p class="font-bold">@marcos_eventos</p>
+<p class="text-sm text-white/60">"Increíble noche celebrando!"</p>
+</div>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-primary text-sm">image</span>
+<span class="material-symbols-outlined text-white/30 text-sm">location_on</span>
+</div>
+</div>
+<div class="flex gap-3 mt-4">
+<button class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-95">
+<span class="material-symbols-outlined">check_circle</span>
+                            Aprobar
+                        </button>
+<button class="flex-1 bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/20 font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all active:scale-95">
+<span class="material-symbols-outlined">cancel</span>
+                            Rechazar
+                        </button>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-white/5 rounded-2xl overflow-hidden border border-white/5 flex flex-col sm:flex-row">
+<div class="relative aspect-square sm:w-48 overflow-hidden">
+<img alt="Crowd at an event dancing" class="w-full h-full object-cover" data-alt="People dancing under colorful lights at a gala" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdgm7MQuxTo0jZwblHG0HhV1Q__cAl01WoC3oOWjAXdhiH3ULu0CplIHq1siSerc3RK2aYFO4x1LQIoMl-W9NnwvzY4slkg-mCT64L65U-O360zTH3nE_lqwwspiVeJVZrtRy74QO4D0IYd0lUXn_DmyTxG__mqIlwBmf8PAJdHoJPOxW6_fmivOK68yPdmIaLJXGZbyst_G5jVqhbR2BrBa0bqgWx4ZYeY76vp_lgHrC17iyPqeu9zYndO1eoCb7z5i9EBINmI4A"/>
+<div class="absolute top-2 left-2 bg-black/50 backdrop-blur-md px-2 py-1 rounded text-[10px] font-bold">
+                        HACE 5 MIN
+                    </div>
+</div>
+<div class="p-4 flex flex-col justify-between flex-1">
+<div class="flex items-start justify-between">
+<div>
+<p class="font-bold">@sofia_design</p>
+<p class="text-sm text-white/60">"Los detalles de la decoración son 10/10"</p>
+</div>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-primary text-sm">videocam</span>
+</div>
+</div>
+<div class="flex gap-3 mt-4">
+<button class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all">
+<span class="material-symbols-outlined">check_circle</span>
+                            Aprobar
+                        </button>
+<button class="flex-1 bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/20 font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-all">
+<span class="material-symbols-outlined">cancel</span>
+                            Rechazar
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-[#2d1933]/95 backdrop-blur-xl border-t border-primary/20 pb-8 pt-2 px-6 flex justify-between items-center z-50">
+<a class="flex flex-col items-center gap-1 group" href="#">
+<div class="bg-primary text-white p-2 rounded-full shadow-lg shadow-primary/20 transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined font-fill">verified_user</span>
+</div>
+<p class="text-[10px] font-bold text-white uppercase tracking-tighter">Moderación</p>
+</a>
+<a class="flex flex-col items-center gap-1 group opacity-60 hover:opacity-100 transition-opacity" href="#">
+<div class="p-2 rounded-full transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-white">bar_chart_4_bars</span>
+</div>
+<p class="text-[10px] font-bold text-white uppercase tracking-tighter">Estadísticas</p>
+</a>
+<a class="flex flex-col items-center gap-1 group opacity-60 hover:opacity-100 transition-opacity" href="#">
+<div class="p-2 rounded-full transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-white">settings_suggest</span>
+</div>
+<p class="text-[10px] font-bold text-white uppercase tracking-tighter">Configuración</p>
+</a>
+<a class="flex flex-col items-center gap-1 group opacity-60 hover:opacity-100 transition-opacity" href="#">
+<div class="p-2 rounded-full transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined text-white">grid_view</span>
+</div>
+<p class="text-[10px] font-bold text-white uppercase tracking-tighter">Layouts</p>
+</a>
+</nav>
+<!-- Background Decoration -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 opacity-20">
+<div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary rounded-full blur-[100px]"></div>
+</div>
+</body></html>

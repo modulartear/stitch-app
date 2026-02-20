@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Kiosko de Impresión de Fotos</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#bd2bee",
+                    },
+                    fontFamily: {
+                        display: ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .bg-main-bg {
+            background-color: #f8fafc;
+        }
+
+        .bg-white {
+            background-color: #ffffff;
+        }
+
+        <style>body {
+            font-family: 'Spline Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: max(100dvh, 884px);
+        }
+
+        .bg-main-bg {
+            background-color: #f8fafc;
+        }
+
+        .bg-sidebar-bg {
+            background-color: #ffffff;
+        }
+
+        .bg-white {
+            background-color: #ffffff;
+        }
+
+        .bg-white\/80 {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .bg-white\/50 {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .bg-background-light\/95 {
+            background-color: rgba(248, 250, 252, 0.95);
+        }
+
+        .text-slate-800,
+        .text-slate-700 {
+            color: #1e293b;
+        }
+
+        .text-slate-500,
+        .text-slate-400 {
+            color: #64748b;
+        }
+
+        .border-primary\/20,
+        .border-primary\/10,
+        .border-slate-200,
+        .border-slate-100 {
+            border-color: #f1f5f9;
+        }
+    </style>
+</head>
+
+<body class="bg-main-bg text-slate-900 min-h-screen flex flex-col font-display">
+    <!-- Top Header -->
+    <header
+        class="sticky top-0 z-50 flex items-center bg-white/80 backdrop-blur-md p-4 border-b border-primary/20 justify-between">
+        <div class="flex items-center gap-2">
+            <i data-lucide="camera" class="text-primary size-6"></i>
+            <h1
+                class="text-xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent italic">
+                Focus Kiosk</h1>
+        </div>
+        <div class="flex items-center gap-4">
+            <button class="text-slate-400 hover:text-primary transition-colors">
+                <i data-lucide="settings" class="size-6"></i>
+            </button>
+        </div>
+    </header>
+    <!-- Filter Section -->
+    <div
+        class="p-4 flex gap-2 overflow-x-auto hide-scrollbar sticky top-[73px] bg-background-light/95 backdrop-blur-sm z-40 border-b border-slate-100">
+        <button onclick="filterPhotos('all')"
+            class="filter-btn active-filter px-6 py-2 rounded-full whitespace-nowrap flex items-center gap-2">
+            <i data-lucide="layout-grid" class="size-4"></i> Todas
+        </button>
+        <button onclick="filterPhotos('recent')"
+            class="filter-btn bg-white border border-slate-200 text-slate-600 px-6 py-2 rounded-full whitespace-nowrap flex items-center gap-2">
+            <i data-lucide="clock" class="size-4"></i> Recientes
+        </button>
+        <button onclick="filterPhotos('favorites')"
+            class="filter-btn bg-white border border-slate-200 text-slate-600 px-6 py-2 rounded-full whitespace-nowrap flex items-center gap-2">
+            <i data-lucide="star" class="size-4"></i> Favoritas
+        </button>
+        <button onclick="filterPhotos('portraits')"
+            class="filter-btn bg-white border border-slate-200 text-slate-600 px-6 py-2 rounded-full whitespace-nowrap flex items-center gap-2">
+            <i data-lucide="user" class="size-4"></i> Retratos
+        </button>
+    </div>
+    <!-- Main Content: Photo Grid -->
+    <main class="flex-1 overflow-y-auto p-4">
+        <div id="photo-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            <!-- Approved photos will be injected here -->
+        </div>
+    </main>
+    <!-- Print Status & Controls Footer -->
+    <footer class="bg-white border-t border-slate-100 p-4 pb-8 space-y-4 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+        <div class="max-w-4xl mx-auto space-y-4">
+            <!-- Printing Status Bar -->
+            <div id="printing-status" class="bg-primary/5 rounded-xl p-4 border border-primary/10 hidden">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-full">
+                        <i data-lucide="printer" class="text-slate-400 size-4"></i>
+                        <span class="text-slate-600 font-bold text-sm">Próxima impresión: <span
+                                class="text-primary tracking-widest italic">10s</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="image" class="text-primary size-5"></i>
+                        <span id="stat-total" class="text-xl font-black text-slate-800 tracking-tighter">0</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Action Area -->
+            <div class="flex flex-col md:flex-row gap-4 items-center">
+                <div class="flex-1 flex items-center gap-3">
+                    <div
+                        class="size-12 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                        <span id="selected-count" class="text-primary font-bold">0</span>
+                    </div>
+                    <div>
+                        <p class="text-slate-800 text-sm font-medium">Fotos seleccionadas</p>
+                        <p class="text-slate-400 text-xs">Total: $0.00 (Gratis en evento)</p>
+                    </div>
+                </div>
+                <button onclick="printPhoto()"
+                    class="w-full bg-primary text-white font-bold py-4 rounded-2xl shadow-lg shadow-primary/30 flex items-center justify-center gap-3 transition-all active:scale-95 group overflow-hidden relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700">
+                    </div>
+                    <i data-lucide="printer" class="size-6"></i>
+                    <span class="text-lg">Imprimir Selección</span>
+                </button>
+            </div>
+        </div>
+    </footer>
+    <!-- Bottom Navigation Bar -->
+    <nav
+        class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 p-4 flex justify-around items-center z-50 md:hidden">
+        <a href="/guest.html" class="flex flex-col items-center gap-1 text-slate-400">
+            <i data-lucide="user" class="size-6"></i>
+            <span class="text-[10px] font-bold uppercase">Invitado</span>
+        </a>
+        <button
+            class="bg-primary size-12 rounded-full -mt-10 border-4 border-background-light text-white shadow-lg flex items-center justify-center">
+            <i data-lucide="plus" class="size-6"></i>
+        </button>
+        <a href="/kiosk.html" class="flex flex-col items-center gap-1 text-primary">
+            <i data-lucide="monitor" class="size-6"></i>
+            <span class="text-[10px] font-bold uppercase">Terminal</span>
+        </a>
+    </nav>
+    <style>
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .selected-card {
+            border-color: #bd2bee !important;
+            transform: scale(0.98);
+        }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        lucide.createIcons();
+
+        const gallery = document.getElementById('photo-grid'); // Changed from kiosk-gallery to photo-grid
+        const selectedCount = document.getElementById('selected-count');
+        const printBtn = document.getElementById('print-btn');
+        const printingStatus = document.getElementById('printing-status');
+        const statTotal = document.getElementById('stat-total');
+        let selectedItems = new Set();
+
+        const loadGallery = async () => {
+            const res = await fetch('/api/media?status=approved');
+            const items = await res.json();
+            grid.innerHTML = '';
+            items.forEach(addItemToGrid);
+        };
+
+        const addItemToGrid = (item) => {
+            const div = document.createElement('div');
+            div.id = `kiosk-item-${item.id}`;
+            div.className = 'relative group cursor-pointer aspect-square rounded-2xl overflow-hidden border border-slate-100 hover:border-primary/50 transition-all shadow-sm';
+            div.onclick = () => toggleSelect(item.id, div);
+            div.innerHTML = `
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('${item.url}');"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div class="check-icon absolute top-2 right-2 bg-green-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <i data-lucide="check" class="size-4"></i>
+                </div>
+            <div class="add-icon absolute top-2 right-2 bg-white/20 backdrop-blur-md text-white size-7 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white/40 transition-colors">
+                <i data-lucide="plus" class="size-4"></i>
+            </div>
+            <div class="absolute bottom-3 left-3">
+                <p class="text-white text-[10px] font-bold bg-black/30 backdrop-blur-md px-2 py-1 rounded">POR ${item.author.toUpperCase()}</p>
+            </div>
+        `;
+            grid.prepend(div);
+        };
+
+        const toggleSelect = (id, element) => {
+            if (selectedItems.has(id)) {
+                selectedItems.delete(id);
+                element.classList.remove('selected-card', 'border-4');
+                element.querySelector('.check-icon').classList.add('opacity-0');
+                element.querySelector('.add-icon').classList.remove('opacity-0');
+            } else {
+                selectedItems.add(id);
+                element.classList.add('selected-card', 'border-4');
+                element.querySelector('.check-icon').classList.remove('opacity-0');
+                element.querySelector('.add-icon').classList.add('opacity-0');
+            }
+            selectedCount.innerText = selectedItems.size;
+            printBtn.disabled = selectedItems.size === 0;
+        };
+
+        const printPhoto = () => {
+            printingStatus.classList.remove('hidden');
+            printBtn.disabled = true;
+            setTimeout(() => {
+                alert('¡Simulación de impresión completada!');
+                printingStatus.classList.add('hidden');
+                // Clear selection
+                document.querySelectorAll('.selected-card').forEach(el => {
+                    el.classList.remove('selected-card', 'border-4');
+                    el.querySelector('.check-icon').classList.add('opacity-0');
+                    el.querySelector('.add-icon').classList.remove('opacity-0');
+                });
+                selectedItems.clear();
+                selectedCount.innerText = '0';
+            }, 3000);
+        };
+
+        socket.on('item_approved', (item) => {
+            addItemToGrid(item);
+        });
+
+        socket.on('stats_update', (stats) => {
+            statTotal.innerText = stats.total;
+        });
+
+        // Initialize Lucide
+        lucide.createIcons();
+        loadGallery();
+    </script>
+</body>
+
+</html>

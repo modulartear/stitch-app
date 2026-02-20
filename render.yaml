@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: stitch-app
+    env: node
+    plan: free # or your preferred plan
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 18.0.0
+      - key: FIREBASE_SERVICE_ACCOUNT
+        sync: false # Set manually in Render dashboard
+      - key: FIREBASE_STORAGE_BUCKET
+        sync: false # e.g. project-id.appspot.com
+      - key: PORT
+        value: 3000

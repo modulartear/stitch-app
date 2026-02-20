@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Event Live Photo Experience</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#bd2bee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1d1022",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Spline Sans', sans-serif;
+        }
+        .glass-effect {
+            background: rgba(45, 25, 51, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen flex flex-col font-display">
+<!-- Top Header -->
+<header class="sticky top-0 z-50 glass-effect border-b border-primary/20 px-4 py-4 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-primary/20 p-2 rounded-lg">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+</div>
+<div>
+<h1 class="text-sm font-semibold opacity-70 leading-none">Evento en Vivo</h1>
+<p class="text-lg font-bold text-white leading-tight">Elena &amp; Carlos</p>
+</div>
+</div>
+<button class="size-10 flex items-center justify-center bg-white/10 rounded-full hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-white">qr_code_2</span>
+</button>
+</header>
+<main class="flex-1 overflow-y-auto pb-24">
+<!-- Hero Welcome Card -->
+<section class="p-4">
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary via-primary/80 to-background-dark p-6 min-h-[180px] flex flex-col justify-end">
+<div class="absolute top-0 right-0 p-4 opacity-20">
+<span class="material-symbols-outlined text-[120px] rotate-12">favorite</span>
+</div>
+<div class="relative z-10">
+<p class="text-white/80 font-medium mb-1">¡Hola, Invitado!</p>
+<h2 class="text-2xl font-bold text-white leading-tight">Bienvenido a la boda de Elena y Carlos</h2>
+<p class="text-white/60 text-sm mt-2">Ayúdanos a capturar cada momento especial</p>
+</div>
+</div>
+</section>
+<!-- Main Upload Action -->
+<section class="px-4 py-2">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-5 rounded-xl flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(189,43,238,0.4)] transition-transform active:scale-[0.98]">
+<span class="material-symbols-outlined text-3xl">add_a_photo</span>
+<span class="text-xl">Subir Fotos / Videos</span>
+</button>
+</section>
+<!-- Live Gallery Section -->
+<section class="mt-8">
+<div class="px-4 flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+</span>
+<h3 class="text-lg font-bold text-white">Viendo en vivo ahora</h3>
+</div>
+<button class="text-primary text-sm font-semibold flex items-center gap-1 hover:underline">
+                    Ver Galería Completa
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<!-- Horizontal Scroll Gallery -->
+<div class="flex gap-4 overflow-x-auto px-4 pb-4 hide-scrollbar">
+<!-- Photo 1 -->
+<div class="flex-none w-40 h-56 rounded-lg overflow-hidden relative group">
+<img class="w-full h-full object-cover" data-alt="Gente bailando alegremente en una boda" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSAuDJpjc8oqQtcZnN41Zwj-fvLOmmCjiIxlRGBu0HZSj0OVpNTMPh7wAQrwWdXDLrju1dKD2_EYn4d3UV5bAqe78axII0oJKLMtm2uMki3gdW35EiRYGNXTFoQPiMcAB1J37HYvS9EG0rf6l8ANp1pqPZYnb10tdsZszFcj5ToNNcYlSqgyLQFyJg78RqsgRgqJkAk1SQcXTKiPIdHF6WCdyYIy6t7T1k8greVA6TT2QVzLH1D__Y4pwW-BMoKlepJz-Zh1RPAHo"/>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
+<p class="text-[10px] text-white/80">Hace 2 min • Por Lucía</p>
+</div>
+</div>
+<!-- Photo 2 -->
+<div class="flex-none w-40 h-56 rounded-lg overflow-hidden relative group">
+<img class="w-full h-full object-cover" data-alt="Primer plano de pastel de bodas elegante" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdFhFSrfaBmr5-LYGSjvSMVax0y_Zv45qo5-OmsAEdx-YjxAHYqzQyFnCDnb9XnMbJnvxqMs4sycR73cSl8_ccGAbhlKagwVaIBzluhsjz_rjE3v7b1GxiNZbSa-KDnNe3w5YlRQPnkWsZf0dG7ZiI3eGcNQW173ffxpnFdJgefqGaBJINEz7QCUW8aPo6TDvc9thvMNceuN5yV4evVhBm-UBZFumJ6b31GuUhgkUM6TlPhqcXn2Gtl_Q3mLE5ayKVuFeOjkrhfVU"/>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
+<p class="text-[10px] text-white/80">Hace 5 min • Por Pedro</p>
+</div>
+</div>
+<!-- Photo 3 -->
+<div class="flex-none w-40 h-56 rounded-lg overflow-hidden relative group">
+<img class="w-full h-full object-cover" data-alt="Decoración de mesa con flores y velas" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRf50OqsglZD2aN5ReArpvN6TYCpNL-0p6jHdH58_Sr1T5nX7vQSUJMBZHph6wUn_VpxHow5sUw750pHDZVY7t7h5NKkQ4Q_Itc_sUMzMlO_dZPnXS1vj855VST8x83ECI_F_omkT0sU6ZBKbABCAkL2KxAJcnNOOgns6UXz6r13Bj0EmkKjn1EPjc6nm5mfkoA86eThil023aPXxXbvgIvVpRc9Mop5YJm1j9H8ALLYm3OkQXMlHD-6YkbwtskWdqHjqR3LJjS6Y"/>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
+<p class="text-[10px] text-white/80">Hace 8 min • Por Sofía</p>
+</div>
+</div>
+<!-- Photo 4 -->
+<div class="flex-none w-40 h-56 rounded-lg overflow-hidden relative group">
+<img class="w-full h-full object-cover" data-alt="Anillos de boda en caja de madera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbd3R5QsfQqYZ47mkCsapapgXKG85jP9N4CAHEEYmbQQp7tuWiNsralr9UlMF2znUpUkSHhm6YhX8NK6z0-ECcGPdadNKmmkDKl--lbpYKE-uXFDNnmwtTNQWeVD0lZtfqGvqTfUa1q1b4OU4XC5BGxi2F5qmoASuGIdF-uV7QXpHR5aajSkBHjuMK7uOm_FPejiKZ4amXb8BfbetlOuRvixDwcXJdGJ_0P_LTCQvrUbVJVPDNRVkMUsgBKCARLlesfKeisWrBz7g"/>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/80 to-transparent">
+<p class="text-[10px] text-white/80">Hace 12 min • Por Marc</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats / Fun Section -->
+<section class="px-4 mt-6">
+<div class="bg-primary/10 border border-primary/20 rounded-xl p-4 flex items-center justify-around text-center">
+<div>
+<p class="text-xs text-primary font-semibold uppercase tracking-wider">Fotos</p>
+<p class="text-xl font-bold text-white">248</p>
+</div>
+<div class="h-8 w-px bg-primary/20"></div>
+<div>
+<p class="text-xs text-primary font-semibold uppercase tracking-wider">Invitados</p>
+<p class="text-xl font-bold text-white">82</p>
+</div>
+<div class="h-8 w-px bg-primary/20"></div>
+<div>
+<p class="text-xs text-primary font-semibold uppercase tracking-wider">Likes</p>
+<p class="text-xl font-bold text-white">1.2k</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 glass-effect border-t border-primary/20 pb-safe shadow-2xl">
+<div class="flex items-center justify-around h-20 px-4">
+<!-- Home -->
+<a class="flex flex-col items-center gap-1 group text-primary" href="#">
+<div class="relative flex items-center justify-center p-2 rounded-xl transition-all">
+<span class="material-symbols-outlined text-[28px] fill-1">house</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-widest">Inicio</span>
+</a>
+<!-- Main Upload Center Button -->
+<a class="flex flex-col items-center gap-1 group -mt-10" href="#">
+<div class="bg-primary size-16 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(189,43,238,0.5)] border-4 border-background-dark group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-white text-3xl font-bold">add</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-widest text-primary mt-1">Subir</span>
+</a>
+<!-- Kiosco -->
+<a class="flex flex-col items-center gap-1 group text-white/50 hover:text-primary transition-colors" href="#">
+<div class="relative flex items-center justify-center p-2 rounded-xl transition-all">
+<span class="material-symbols-outlined text-[28px]">storefront</span>
+</div>
+<span class="text-[10px] font-bold uppercase tracking-widest">Kiosco</span>
+</a>
+</div>
+</nav>
+<!-- Fill-safe for mobile devices with home bars -->
+<div class="h-safe bg-background-dark"></div>
+</body></html>

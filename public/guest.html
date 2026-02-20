@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Stitch - Perfil de Usuario</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#bd2bee',
+                    },
+                    fontFamily: {
+                        sans: ['Spline Sans', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Spline Sans', sans-serif;
+        }
+
+        .material-symbols-outlined,
+        .lucide {
+            vertical-align: middle;
+        }
+
+        .active-nav {
+            background: #d946ef;
+            color: white !important;
+        }
+
+        .sidebar {
+            width: 260px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+        }
+
+        body {
+            font-family: 'Spline Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .bg-main-bg {
+            background-color: #f8fafc;
+        }
+
+        .bg-sidebar-bg {
+            background-color: #ffffff;
+        }
+
+        .bg-white {
+            background-color: #ffffff;
+        }
+
+        .text-slate-800,
+        .text-slate-700 {
+            color: #1e293b;
+        }
+
+        .text-slate-500,
+        .text-slate-400 {
+            color: #64748b;
+        }
+
+        .border-slate-100,
+        .border-slate-50,
+        .border-slate-200 {
+            border-color: #f1f5f9;
+        }
+    </style>
+</head>
+
+<body class="bg-main-bg flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="sidebar h-screen sticky top-0 bg-sidebar-bg border-r border-slate-100 flex flex-col p-6 z-50">
+        <div class="flex items-center gap-2 mb-10 px-2">
+            <div class="size-8 bg-primary rounded-lg flex items-center justify-center">
+                <i data-lucide="camera" class="text-white size-4"></i>
+            </div>
+            <span class="font-bold text-xl text-slate-800 tracking-tighter">Focus<span
+                    class="text-primary">.app</span></span>
+        </div>
+
+        <nav class="flex-1 space-y-2">
+            <a href="/guest.html"
+                class="active-nav flex items-center gap-3 px-4 py-3 rounded-xl font-semibold transition-all shadow-lg shadow-primary/20">
+                <i data-lucide="user" class="size-5"></i> Perfil
+            </a>
+            <a href="/events.html"
+                class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium transition-all">
+                <i data-lucide="calendar" class="size-5"></i> Eventos
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium transition-all">
+                <i data-lucide="sparkles" class="size-5"></i> Servicios
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium transition-all">
+                <i data-lucide="image" class="size-5"></i> Álbumes
+            </a>
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium transition-all">
+                <i data-lucide="settings" class="size-5"></i> Configuración
+            </a>
+        </nav>
+
+        <div class="mt-auto space-y-2">
+            <a href="#"
+                class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium">
+                <i data-lucide="book-open" class="size-5 text-purple-500"></i> Blog
+            </a>
+            <button
+                class="w-full bg-green-500 text-white flex items-center justify-center gap-3 py-3 rounded-xl font-bold shadow-lg shadow-green-500/20">
+                <i data-lucide="message-circle" class="size-5"></i> Contactar
+            </button>
+            <button onclick="logout()"
+                class="w-full flex items-center gap-3 px-4 py-3 text-slate-500 hover:bg-slate-50 rounded-xl font-medium transition-all">
+                <i data-lucide="log-out" class="size-5"></i> Cerrar sesión
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 min-w-0">
+        <!-- Header / Breadcrumbs -->
+        <header class="bg-white px-8 py-6 flex items-center justify-between border-b border-slate-100">
+            <div class="flex items-center gap-3 text-slate-500 text-sm font-semibold">
+                <button class="bg-primary size-7 rounded-full flex items-center justify-center text-white">
+                    <i data-lucide="arrow-left" class="size-4"></i>
+                </button>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="user" class="size-4 text-slate-400"></i>
+                    <span>Inicio / Perfil</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 hover:bg-slate-100 rounded-xl transition-colors">
+                    <i data-lucide="bell" class="size-5 text-slate-400"></i>
+                    <span class="absolute top-2 right-2 size-2 bg-primary rounded-full border-2 border-white"></span>
+                </button>
+                <div class="h-8 w-px bg-slate-100 mx-2"></div>
+                <div class="w-10 h-10 bg-slate-200 rounded-full overflow-hidden">
+                    <img id="header-avatar" class="w-full h-full object-cover hidden" src="" alt="">
+                </div>
+            </div>
+        </header>
+
+        <!-- Purple Banner Area -->
+        <div class="px-8 mt-6">
+            <div class="h-44 bg-primary rounded-3xl relative p-8">
+                <!-- Profile Overlay -->
+                <div class="absolute -bottom-16 left-8 flex items-end gap-6">
+                    <div class="relative group cursor-pointer"
+                        onclick="document.getElementById('avatar-input').click()">
+                        <div id="avatar-container"
+                            class="size-32 rounded-full border-4 border-white bg-slate-100 flex items-center justify-center text-5xl font-bold text-slate-400 shadow-xl overflow-hidden relative">
+                            <img id="avatar-img" class="w-full h-full object-cover hidden" src="" alt="Avatar">
+                            <span id="avatar-placeholder">J</span>
+                            <div
+                                class="absolute bottom-0 translate-y-full group-hover:translate-y-0 right-0 w-full bg-slate-800/60 py-1 text-[10px] text-center text-white backdrop-blur-sm transition-transform duration-300">
+                                Editar</div>
+                        </div>
+                        <button
+                            class="absolute top-0 right-0 size-8 bg-primary border-2 border-white rounded-full flex items-center justify-center text-white text-xs shadow-lg group-hover:scale-110 transition-transform">
+                            <i data-lucide="edit" class="size-4"></i>
+                        </button>
+                        <input type="file" id="avatar-input" class="hidden" accept="image/*">
+                    </div>
+                    <div class="pb-2">
+                        <h2 id="display-name" class="text-3xl font-bold text-slate-800">Cargando...</h2>
+                        <div class="flex items-center gap-4 mt-1">
+                            <span
+                                class="bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Usuario</span>
+                            <span class="text-slate-400 text-sm flex items-center gap-1">
+                                <i data-lucide="map-pin" class="size-4"></i> Venado Tuerto, Ar
+                                🇦🇷
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Content Area -->
+        <div class="pt-24 px-8 pb-10">
+            <div class="max-w-4xl mx-auto">
+                <!-- Profile Settings Card -->
+                <div
+                    class="bg-white p-8 md:p-12 rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/50">
+                    <div class="flex items-center gap-4 mb-10 pb-6 border-b border-slate-50">
+                        <div class="size-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                            <i data-lucide="settings" class="size-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-800">Configuración de Cuenta</h3>
+                            <p class="text-slate-500 font-medium">Gestiona tu información personal y seguridad</p>
+                        </div>
+                    </div>
+
+                    <form id="profile-form" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-slate-700 ml-1">Nombre Completo</label>
+                            <div class="relative group">
+                                <i data-lucide="user"
+                                    class="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-slate-400 group-focus-within:text-primary transition-colors"></i>
+                                <input type="text" id="form-name" required
+                                    class="w-full pl-12 pr-4 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all"
+                                    placeholder="Tu nombre">
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-slate-700 ml-1">Correo Electrónico</label>
+                            <div class="relative group">
+                                <i data-lucide="mail"
+                                    class="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-slate-400 group-focus-within:text-primary transition-colors"></i>
+                                <input type="email" id="form-email" required disabled
+                                    class="w-full pl-12 pr-4 py-4 bg-slate-100 border border-slate-200 rounded-2xl text-slate-500 cursor-not-allowed outline-none transition-all"
+                                    placeholder="ejemplo@correo.com">
+                            </div>
+                            <p class="text-[10px] text-slate-400 ml-1 italic">* El correo electrónico no se puede
+                                cambiar por seguridad</p>
+                        </div>
+
+                        <div class="md:col-span-2 space-y-2">
+                            <label class="block text-sm font-semibold text-slate-700 ml-1">Contraseña</label>
+                            <div class="relative group">
+                                <i data-lucide="lock"
+                                    class="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-slate-400 group-focus-within:text-primary transition-colors"></i>
+                                <input type="password" id="form-password"
+                                    class="w-full pl-12 pr-4 py-4 bg-slate-50/50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all">
+                                <button type="button" onclick="togglePassword()"
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors">
+                                    <i id="eye-icon" data-lucide="eye" class="size-5"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="form-msg" class="md:col-span-2 hidden p-4 rounded-2xl text-sm font-medium text-center">
+                        </div>
+
+                        <div class="md:col-span-2 pt-4">
+                            <button type="submit" id="save-btn"
+                                class="w-full md:w-auto bg-primary hover:bg-primary/90 text-white font-bold px-10 py-4 rounded-2xl shadow-xl shadow-primary/30 transition-all active:scale-95 flex items-center justify-center gap-3">
+                                <i data-lucide="save" class="size-5"></i>
+                                Guardar Cambios
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Navigation (Visible only on small screens) -->
+    <nav
+        class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 p-4 flex justify-around items-center z-50">
+        <a href="/guest.html" class="text-primary flex flex-col items-center gap-1">
+            <i data-lucide="user" class="size-6"></i>
+            <span class="text-[10px] font-bold uppercase">Perfil</span>
+        </a>
+        <button id="mobile-upload-trigger"
+            class="bg-primary size-12 rounded-full -mt-10 border-4 border-main-bg text-white shadow-lg flex items-center justify-center">
+            <i data-lucide="plus" class="size-6"></i>
+        </button>
+        <a href="/kiosk.html" class="text-slate-400 flex flex-col items-center gap-1">
+            <i data-lucide="monitor" class="size-6"></i>
+            <span class="text-[10px] font-bold uppercase">Kiosco</span>
+        </a>
+    </nav>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Check authentication - Robust Check
+        const userId = localStorage.getItem('userId');
+        const userName = localStorage.getItem('userName');
+        const userEmail = localStorage.getItem('userEmail');
+        const avatarUrl = localStorage.getItem('avatarUrl');
+
+        const isInvalidSession = !userId || userId === 'null' || userId === 'undefined';
+
+        if (isInvalidSession) {
+            console.warn('Sesión inválida detectada, redirigiendo...');
+            localStorage.setItem('redirectReason', 'session_incomplete');
+            window.location.href = '/login.html';
+        }
+
+        const displayName = document.getElementById('display-name');
+        const avatarImg = document.getElementById('avatar-img');
+        const headerAvatar = document.getElementById('header-avatar');
+        const avatarPlaceholder = document.getElementById('avatar-placeholder');
+
+        // Form elements
+        const formName = document.getElementById('form-name');
+        const formEmail = document.getElementById('form-email');
+        const formPassword = document.getElementById('form-password');
+        const profileForm = document.getElementById('profile-form');
+        const formMsg = document.getElementById('form-msg');
+        const saveBtn = document.getElementById('save-btn');
+
+        async function fetchUserData() {
+            try {
+                const res = await fetch(`/api/user/${userId}`);
+                if (res.ok) {
+                    const data = await res.json();
+
+                    // Update UI
+                    displayName.innerText = data.name || 'Invitado';
+                    formName.value = data.name || '';
+                    formEmail.value = data.email || '';
+
+                    // Update localStorage
+                    localStorage.setItem('userName', data.name);
+                    localStorage.setItem('userEmail', data.email);
+
+                    if (data.avatar_url) {
+                        localStorage.setItem('avatarUrl', data.avatar_url);
+                        avatarImg.src = data.avatar_url;
+                        avatarImg.classList.remove('hidden');
+                        if (headerAvatar) {
+                            headerAvatar.src = data.avatar_url;
+                            headerAvatar.classList.remove('hidden');
+                        }
+                        avatarPlaceholder.classList.add('hidden');
+                    } else {
+                        avatarPlaceholder.innerText = (data.name || 'U').charAt(0).toUpperCase();
+                        avatarPlaceholder.classList.remove('hidden');
+                        avatarImg.classList.add('hidden');
+                    }
+                }
+            } catch (err) {
+                console.error('Error fetching user data:', err);
+            }
+        }
+
+        // Initialize display with local data first (for speed)
+        displayName.innerText = userName || 'Cargando...';
+        formName.value = userName || '';
+        formEmail.value = localStorage.getItem('userEmail') || '';
+
+        const currentAvatarUrl = localStorage.getItem('avatarUrl');
+        if (currentAvatarUrl) {
+            avatarImg.src = currentAvatarUrl;
+            avatarImg.classList.remove('hidden');
+            if (headerAvatar) {
+                headerAvatar.src = currentAvatarUrl;
+                headerAvatar.classList.remove('hidden');
+            }
+            avatarPlaceholder.classList.add('hidden');
+        } else {
+            avatarPlaceholder.innerText = (userName || 'U').charAt(0).toUpperCase();
+        }
+
+        // Then fetch fresh data
+        fetchUserData();
+
+        // Avatar Upload Logic
+        const avatarInput = document.getElementById('avatar-input');
+        const avatarContainer = document.getElementById('avatar-container');
+
+        avatarInput.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // Show loading state
+            avatarContainer.classList.add('opacity-50');
+            const originalPlaceholder = avatarPlaceholder.innerText;
+            avatarPlaceholder.innerHTML = '<i class="animate-spin" data-lucide="loader-2"></i>';
+            lucide.createIcons();
+
+            const formData = new FormData();
+            formData.append('avatar', file);
+            formData.append('userId', userId);
+
+            try {
+                const res = await fetch('/api/upload-avatar', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    localStorage.setItem('avatarUrl', data.avatar_url);
+                    avatarImg.src = data.avatar_url;
+                    avatarImg.classList.remove('hidden');
+                    if (headerAvatar) {
+                        headerAvatar.src = data.avatar_url;
+                        headerAvatar.classList.remove('hidden');
+                    }
+                    avatarPlaceholder.classList.add('hidden');
+                } else {
+                    alert('Error al subir avatar: ' + (data.message || 'Error desconocido'));
+                    avatarPlaceholder.innerText = originalPlaceholder;
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error al conectar con el servidor');
+                avatarPlaceholder.innerText = originalPlaceholder;
+            } finally {
+                avatarContainer.classList.remove('opacity-50');
+                lucide.createIcons();
+            }
+        };
+
+        // Profile Form Logic
+        profileForm.onsubmit = async (e) => {
+            e.preventDefault();
+
+            const name = formName.value;
+            const email = formEmail.value;
+            const password = formPassword.value;
+
+            formMsg.classList.add('hidden');
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="animate-spin" data-lucide="loader-2"></i> Guardando...';
+            lucide.createIcons();
+
+            try {
+                const res = await fetch('/api/update-profile', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        password: password || undefined,
+                        oldEmail: userEmail
+                    })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    localStorage.setItem('userName', name);
+                    localStorage.setItem('userPassword', password);
+                    displayName.innerText = name;
+                    formMsg.innerText = '¡Cambios guardados con éxito!';
+                    formMsg.className = 'md:col-span-2 p-4 rounded-2xl text-sm font-medium text-center bg-green-50 text-green-600 mb-4 block';
+                } else {
+                    formMsg.innerText = data.message;
+                    formMsg.className = 'md:col-span-2 p-4 rounded-2xl text-sm font-medium text-center bg-red-50 text-red-600 mb-4 block';
+                }
+            } catch (err) {
+                formMsg.innerText = 'Error de conexión con el servidor';
+                formMsg.className = 'md:col-span-2 p-4 rounded-2xl text-sm font-medium text-center bg-red-50 text-red-600 mb-4 block';
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i data-lucide="save" class="size-5"></i> Guardar Cambios';
+                lucide.createIcons();
+            }
+        };
+
+        function togglePassword() {
+            const input = document.getElementById('form-password');
+            const icon = document.getElementById('eye-icon');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                input.type = 'password';
+                icon.setAttribute('data-lucide', 'eye');
+            }
+            lucide.createIcons();
+        }
+
+        function logout() {
+            localStorage.clear();
+            window.location.href = '/login.html';
+        }
+    </script>
+</body>
+
+</html>

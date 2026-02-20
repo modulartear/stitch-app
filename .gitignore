@@ -1,0 +1,13 @@
+# Dependencias
+node_modules/
+
+# Archivos locales (NO subir nunca a git)
+.env
+firebase-service-account.json
+
+# Archivos subidos localmente
+uploads/
+
+# Logs
+*.log
+npm-debug.log*

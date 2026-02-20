@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kiosko de Impresión de Fotos</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#bd2bee",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1d1022",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Spline Sans", sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3f2348;
+            border-radius: 10px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-white min-h-screen flex flex-col">
+<!-- Top Header -->
+<header class="sticky top-0 z-50 flex items-center bg-background-dark/80 backdrop-blur-md p-4 border-b border-primary/20 justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-primary p-2 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(189,43,238,0.4)]">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1">photo_camera</span>
+</div>
+<h1 class="text-white text-xl font-bold tracking-tight">Galería del Evento</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex flex-col items-end">
+<span class="text-[10px] uppercase tracking-widest text-primary font-bold">Estado del Sistema</span>
+<span class="text-xs text-green-400 flex items-center gap-1">
+<span class="size-2 bg-green-400 rounded-full animate-pulse"></span> Impresora Online
+                </span>
+</div>
+<button class="flex size-11 items-center justify-center rounded-xl bg-primary/10 border border-primary/20 text-white hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Filter Section -->
+<div class="flex gap-3 p-4 overflow-x-auto custom-scrollbar no-scrollbar items-center">
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-primary px-6 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-sm">grid_view</span>
+<p class="text-white text-sm font-semibold">Todos</p>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-white/5 border border-white/10 px-5 hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<p class="text-white text-sm font-medium">Recientes</p>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-white/5 border border-white/10 px-5 hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-sm text-yellow-400" style="font-variation-settings: 'FILL' 1">star</span>
+<p class="text-white text-sm font-medium">Favoritos</p>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-xl bg-white/5 border border-white/10 px-5 hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-sm">person</span>
+<p class="text-white text-sm font-medium">Mis Fotos</p>
+</button>
+</div>
+<!-- Main Content: Photo Grid -->
+<main class="flex-1 overflow-y-auto p-4">
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+<!-- Selected Image Card -->
+<div class="relative group cursor-pointer aspect-square rounded-xl overflow-hidden border-4 border-primary shadow-2xl shadow-primary/30 transform scale-[0.98]">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Event attendees laughing at a party" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDNuFhUG0jswxlX3MOVI8CMWkMmXi-nsP_wmR_I0JwRmQwnPQnfaZRy_W45B83kdblvULjO_EUS0x6F2c8U-UFlKmWWHfOIwQxesNk0fPoooZABc3_B9NNaxFnFBo6bQTjjTlJIABdjk_TXEeRziQHLP7rkJBN0CbqOUFYq_U4yHIlTW3oEpv95I8LRjqzvnInBrTQoj0EX1orxiX7UNJepxIWLIt_8_GnrOaJ9YI9roRWXaJxb33zMM0wl-XkT0LNdINTvj-xsGiY');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-3 right-3 bg-primary text-white size-8 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-xl">check</span>
+</div>
+<div class="absolute bottom-3 left-3">
+<p class="text-white text-xs font-bold bg-black/40 backdrop-blur-md px-2 py-1 rounded">#1024</p>
+</div>
+</div>
+<!-- Standard Image Card -->
+<div class="relative group cursor-pointer aspect-square rounded-xl overflow-hidden border border-white/10 hover:border-primary/50 transition-all">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Atmospheric event lighting and crowd" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA_sVj85eqUAnX634lgM-JnWQNn7__GW8eOpSngKkgk1XZDaWAZpY5Bq6QH0DFY5CKvDhGonV0RAtf7a6TVkwrSh8jSUkc-sZaojKB7ixnvObb448sXbvHNaEU0IzjEjrHZkr85x7WkDuwwugL_KigBp07JUyRRIdFTYI6Qc338E33uRmwlUjbk1TtxnQS9emwZd75xn2FutstRmUSlL8ThO8sf0kc7pROpUxg2RDprqAMYsIB4hiqH57deURV9JP7cKFWr5F69zs0');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-3 right-3 bg-white/20 backdrop-blur-md text-white/50 size-8 rounded-full border border-white/20 flex items-center justify-center group-hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">add</span>
+</div>
+<div class="absolute bottom-3 left-3">
+<p class="text-white text-xs font-medium bg-black/40 backdrop-blur-md px-2 py-1 rounded">#1025</p>
+</div>
+</div>
+<div class="relative group cursor-pointer aspect-square rounded-xl overflow-hidden border border-white/10">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Close up of event decoration and bokeh" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAeP_CipxUY8u-MNhkjx3CpGZR7ln08nnYjixgrnIzJzfAr8mRqKmE9x7l7bqmsQh1W4YvvQdqq5t9ze1kTR8wm8qHnFXEbk6l0Uedk2biM7oZip8hZUg_0l2akyOd5i3QoIaWqSHCQK_nm7JmLY5rtSM-22BX_pemDRs1vKvrxx6oNLRwI4ITTrnlI5Q-k3Z2nC4nKZ_wQzj3XlQ-be93faYHnrvvl56m8m55citYNCmKSL57PPCP8Gbo4JMU29BED0MAAlwfZMV8');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-3 right-3 bg-white/20 backdrop-blur-md text-white/50 size-8 rounded-full border border-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">add</span>
+</div>
+<div class="absolute bottom-3 left-3">
+<p class="text-white text-xs font-medium bg-black/40 backdrop-blur-md px-2 py-1 rounded">#1026</p>
+</div>
+</div>
+<div class="relative group cursor-pointer aspect-square rounded-xl overflow-hidden border border-white/10">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Night club dancing crowd and laser lights" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDpAwFKr-0kvjbgMtGc1O8NZo8G8KIHTItqE8UEwvoX0j1vXBokNEhROGG-gmOVhovq39DOytg_1KucID5XstJFCE8kpS8Arnz-lj6a644QDlPDeoGexLXWVKEn2oq5lXoqyNTCqNKeR04lRvSaXPz8lAjc-U7QYrPW-Jqa1SJrM41Y0VIHglbpDMU65qpHEJJo5t3OPsXTH0dmJdrRqFvWbydpSy9hSWulE3GQLn-wSS3T6bFVD8M_4oIrF8OVpDzP-8o3O1S4Ktg');"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+<div class="absolute top-3 right-3 bg-white/20 backdrop-blur-md text-white/50 size-8 rounded-full border border-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">add</span>
+</div>
+<div class="absolute bottom-3 left-3">
+<p class="text-white text-xs font-medium bg-black/40 backdrop-blur-md px-2 py-1 rounded">#1027</p>
+</div>
+</div>
+<!-- Repeated for fill -->
+<div class="relative group cursor-pointer aspect-square rounded-xl overflow-hidden border-4 border-primary transform scale-[0.98]">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Group of friends celebrating at a wedding" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBjvDfAuA0_ORyQJtNAqs8IzW-IBT0xhj_txAg6LGwSrDgPhfDm1EqK-rEHJ3N2MM32MyO04rmqYxmhWtY14klIi7V1gcxVDRWcyOBXvGjQtG9_zlW_R17_PytCjZdFe_nG0vDWBHV59lx2N-FcLWrWEmkRqSgkAn8N5-Pa2H4XU2jUp4CA1kvFS-J9FsdQU70KVbrolxFAO8Mc1pAVhtMBtSKGkaMCOx-nbCY9mI5R6Tu4BstlFhEoRLGbf7rHDXYXU54AnR1iLbE');"></div>
+<div class="absolute top-3 right-3 bg-primary text-white size-8 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">check</span>
+</div>
+<div class="absolute bottom-3 left-3">
+<p class="text-white text-xs font-bold bg-black/40 backdrop-blur-md px-2 py-1 rounded">#1028</p>
+</div>
+</div>
+<div class="relative group cursor-pointer aspect-square rounded-xl overflow-hidden border border-white/10">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Concert stage with colorful lights" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCOsBtZHA2exdU303i3VVDKuAbUbTmbG9d4-1M9hHyYt8_bwRZEFRo6GmmxEEMB2iMcXEBAlCilNYxUAm51tgXvh6fIJEwpqGniqR-9mNKAUBSxMwtQoVa-No8IcPMM7WRLWEenyhjcVK-Am-Z5_IW-pVOGDhlukP2gQKX6c2xSUz4Rl6dHCVwatIc9LzNcgmvOoEgeuUEjWexHvHRqUer_ctuD94QbxUZiWvnjq-_NFFDtjZqVEpj041maqDGHgTmTbjB5nIFb3OY');"></div>
+<div class="absolute top-3 right-3 bg-white/20 backdrop-blur-md text-white/50 size-8 rounded-full border border-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">add</span>
+</div>
+<div class="absolute bottom-3 left-3">
+<p class="text-white text-xs font-medium bg-black/40 backdrop-blur-md px-2 py-1 rounded">#1029</p>
+</div>
+</div>
+<div class="relative group cursor-pointer aspect-square rounded-xl overflow-hidden border border-white/10">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="DJ at an event with bright stage lights" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCkpRWcpCwwi-d1KNy5CFgy06PVXd1z59WucVOSccL30YzaibJS25D3hi9uAGOWNZbZTZwpC60jSE_-4oavYoJ84M0GzPni29ZLn4lDKzHeDjQkssjXAg6-XFVM-1QdFMaIk9x39GhXx89RMhWiz8jz68fXVlOGK0q5vop1g2bGYjihO6L5tFSx6aJEc8LNdpRoy3p1I2bx9kDvhoGf-OiAJrn5DwtdLGQJVIqUXDCkJvuJwBJ8P2BxBrt8hzCE6gQVAE7mP6t30NU');"></div>
+<div class="absolute top-3 right-3 bg-white/20 backdrop-blur-md text-white/50 size-8 rounded-full border border-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">add</span>
+</div>
+<div class="absolute bottom-3 left-3">
+<p class="text-white text-xs font-medium bg-black/40 backdrop-blur-md px-2 py-1 rounded">#1030</p>
+</div>
+</div>
+<div class="relative group cursor-pointer aspect-square rounded-xl overflow-hidden border border-white/10">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Party celebration with confetti" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBP_NbarR04K4Qw99JNySfaDt5_qrsZ19tWzfrZj_tm5UiuhG81uFhCrxXtO5xwad2O-98ciPkSnKlaMMiW3esbM8B8hIIoPnkvX1zw5n9l3l6LcHOgnShRgOnTn97DxAADnTzSQweYLv6XfvTXDrKRgsXDJXLl98uMhK1Pqpb2ZryHe0ENnDztrlvGefUR8qavPqW5_tVyTt71eocht6hwffdX-vmMHML7OESXontIFo-ZKiC6E1bIwTKwlSFOysYaODhReWkjAJE');"></div>
+<div class="absolute top-3 right-3 bg-white/20 backdrop-blur-md text-white/50 size-8 rounded-full border border-white/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-xl">add</span>
+</div>
+<div class="absolute bottom-3 left-3">
+<p class="text-white text-xs font-medium bg-black/40 backdrop-blur-md px-2 py-1 rounded">#1031</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Print Status & Controls Footer -->
+<footer class="bg-background-dark border-t border-white/10 p-4 pb-8 space-y-4 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+<div class="max-w-4xl mx-auto space-y-4">
+<!-- Printing Status Bar -->
+<div class="bg-white/5 rounded-xl p-4 border border-white/5">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">print</span>
+<p class="text-white text-sm font-semibold">Imprenta enviada</p>
+</div>
+<p class="text-primary text-xs font-bold">75% • 30s restates</p>
+</div>
+<div class="relative h-2.5 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="absolute top-0 left-0 h-full bg-primary shadow-[0_0_10px_#bd2bee] rounded-full" style="width: 75%;"></div>
+</div>
+<p class="mt-2 text-white/40 text-[10px] uppercase tracking-wider">Cola de impresión activa: 2 fotos restantes</p>
+</div>
+<!-- Action Area -->
+<div class="flex flex-col md:flex-row gap-4 items-center">
+<div class="flex-1 flex items-center gap-3">
+<div class="size-12 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
+<span class="text-primary font-bold">2</span>
+</div>
+<div>
+<p class="text-white text-sm font-medium">Fotos seleccionadas</p>
+<p class="text-white/50 text-xs">Total: $0.00 (Gratis en evento)</p>
+</div>
+</div>
+<button class="w-full md:w-auto min-w-[240px] bg-primary hover:bg-primary/90 text-white font-bold py-4 px-8 rounded-2xl flex items-center justify-center gap-3 shadow-[0_8px_25px_rgba(189,43,238,0.4)] active:scale-95 transition-all">
+<span class="material-symbols-outlined">print</span>
+<span>Imprimir ahora</span>
+</button>
+</div>
+</div>
+</footer>
+<!-- Bottom Navigation Bar -->
+<nav class="flex gap-2 border-t border-white/10 bg-background-dark/95 backdrop-blur-md px-4 pb-4 pt-3">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-primary" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">photo_library</span>
+</div>
+<p class="text-xs font-bold leading-normal">Galería</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-white/60 hover:text-white transition-colors" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined">print_connect</span>
+</div>
+<p class="text-xs font-medium leading-normal">Mis Impresiones</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-white/60 hover:text-white transition-colors" href="#">
+<div class="flex h-8 items-center justify-center">
+<span class="material-symbols-outlined">account_circle</span>
+</div>
+<p class="text-xs font-medium leading-normal">Mi Cuenta</p>
+</a>
+</nav>
+</body></html>
