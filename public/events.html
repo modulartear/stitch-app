@@ -406,16 +406,16 @@
 
         // Modal Logic
         const modal = document.getElementById('new-event-modal');
-        function openModal() {
+        window.openModal = function () {
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-        }
+        };
 
-        function closeModal() {
+        window.closeModal = function () {
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
             document.getElementById('new-event-form').reset();
-        }
+        };
 
         // Persistence Logic
         async function loadEvents() {
