@@ -353,6 +353,8 @@
             } catch (e) { console.error('Lucide error:', e); }
         });
 
+        };
+
         // Auth Logic - Robust Check
         const userId = localStorage.getItem('userId');
         const userName = localStorage.getItem('userName');
@@ -362,7 +364,11 @@
 
         if (isInvalidSession) {
             console.warn('DEBUG: Sesión inválida detectada en events.html, redirigiendo...');
-            window.location.href = '/login.html';
+            // Show a quick message before redirect
+            setTimeout(() => {
+                alert('Por favor, inicia sesión para gestionar eventos.');
+                window.location.href = '/login.html';
+            }, 100);
             return;
         }
 
@@ -404,17 +410,6 @@
             window.location.href = '/login.html';
         }
 
-        // Modal Logic
-        const modal = document.getElementById('new-event-modal');
-        window.openModal = function () {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        };
-
-        window.closeModal = function () {
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            document.getElementById('new-event-form').reset();
         };
 
         // Persistence Logic
@@ -554,3 +549,4 @@
 </body>
 
 </html>
+
