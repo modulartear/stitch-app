@@ -35,20 +35,6 @@
     </script>
     <style>
         body {
-            font-family: "Spline Sans", sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
-        }
-
-        .bg-main-bg {
-            background-color: #f8fafc;
-        }
-
-        .bg-white {
-            background-color: #ffffff;
-        }
-
-        <style>body {
             font-family: 'Spline Sans', sans-serif;
             background-color: #f8fafc;
             color: #1e293b;
@@ -95,6 +81,10 @@
         .border-slate-100 {
             border-color: #f1f5f9;
         }
+
+        .safe-bottom {
+            padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+        }
     </style>
 </head>
 
@@ -135,7 +125,7 @@
         </button>
     </div>
     <!-- Main Content: Photo Grid -->
-    <main class="flex-1 overflow-y-auto p-4">
+    <main class="flex-1 overflow-y-auto p-4 safe-bottom">
         <div id="photo-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             <!-- Approved photos will be injected here -->
         </div>
@@ -169,7 +159,7 @@
                         <p class="text-slate-400 text-xs">Total: $0.00 (Gratis en evento)</p>
                     </div>
                 </div>
-                <button onclick="printPhoto()"
+                <button id="print-btn" onclick="printPhoto()"
                     class="w-full bg-primary text-white font-bold py-4 rounded-2xl shadow-lg shadow-primary/30 flex items-center justify-center gap-3 transition-all active:scale-95 group overflow-hidden relative">
                     <div
                         class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700">
@@ -182,7 +172,8 @@
     </footer>
     <!-- Bottom Navigation Bar -->
     <nav
-        class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 p-4 flex justify-around items-center z-50 md:hidden">
+        class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 p-4 flex justify-around items-center z-50 md:hidden"
+        style="padding-bottom: calc(1rem + env(safe-area-inset-bottom));">
         <a href="/guest.html" class="flex flex-col items-center gap-1 text-slate-400">
             <i data-lucide="user" class="size-6"></i>
             <span class="text-[10px] font-bold uppercase">Invitado</span>
@@ -217,12 +208,33 @@
         const socket = io();
         lucide.createIcons();
 
-        const gallery = document.getElementById('photo-grid'); // Changed from kiosk-gallery to photo-grid
+        const grid = document.getElementById('photo-grid');
         const selectedCount = document.getElementById('selected-count');
         const printBtn = document.getElementById('print-btn');
         const printingStatus = document.getElementById('printing-status');
         const statTotal = document.getElementById('stat-total');
         let selectedItems = new Set();
+
+        if (printBtn) {
+            printBtn.disabled = true;
+            printBtn.classList.add('opacity-60');
+        }
+
+        function filterPhotos(filter) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active-filter');
+                btn.classList.add('bg-white', 'border', 'border-slate-200', 'text-slate-600');
+            });
+
+            const target = document.querySelector(`.filter-btn[onclick="filterPhotos('${filter}')"]`);
+            if (target) {
+                target.classList.add('active-filter');
+                target.classList.remove('bg-white', 'border', 'border-slate-200', 'text-slate-600');
+            }
+
+            // Por ahora solo cambiamos el estado visual del filtro.
+            // Si querés, después lo conectamos a tags/categorías reales del item.
+        }
 
         const loadGallery = async () => {
             const res = await fetch('/api/media?status=approved');
@@ -265,7 +277,10 @@
                 element.querySelector('.add-icon').classList.add('opacity-0');
             }
             selectedCount.innerText = selectedItems.size;
-            printBtn.disabled = selectedItems.size === 0;
+            if (printBtn) {
+                printBtn.disabled = selectedItems.size === 0;
+                printBtn.classList.toggle('opacity-60', selectedItems.size === 0);
+            }
         };
 
         const printPhoto = () => {

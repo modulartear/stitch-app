@@ -32,30 +32,30 @@
     </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex items-center justify-center p-4 sm:p-6">
     <div class="w-full max-w-md">
         <!-- Logo Section -->
-        <div class="flex flex-col items-center mb-10">
+        <div class="flex flex-col items-center mb-8 sm:mb-10">
             <div
-                class="size-16 bg-primary rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/30 mb-4 transition-transform hover:scale-110">
-                <i data-lucide="camera" class="text-white size-8"></i>
+                class="size-14 sm:size-16 bg-primary rounded-2xl flex items-center justify-center shadow-2xl shadow-primary/30 mb-4 transition-transform hover:scale-110">
+                <i data-lucide="camera" class="text-white size-7 sm:size-8"></i>
             </div>
-            <h1 class="text-3xl font-bold text-slate-800 tracking-tighter">Stitch<span class="text-primary">.app</span>
+            <h1 class="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tighter">Stitch<span class="text-primary">.app</span>
             </h1>
-            <p class="text-slate-500 mt-2 font-medium">Únete a nuestra comunidad</p>
+            <p class="text-slate-500 mt-2 font-medium text-sm sm:text-base">Únete a nuestra comunidad</p>
         </div>
 
         <!-- Register Card -->
         <div
-            class="bg-white/70 backdrop-blur-xl border border-white p-8 rounded-[2.5rem] shadow-2xl shadow-slate-200/50">
-            <form id="register-form" class="space-y-6">
+            class="bg-white/70 backdrop-blur-xl border border-white p-6 sm:p-8 rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl shadow-slate-200/50">
+            <form id="register-form" class="space-y-5 sm:space-y-6">
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-2 ml-1">Nombre completo</label>
                     <div class="relative group">
                         <i data-lucide="user"
                             class="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-slate-400 group-focus-within:text-primary transition-colors"></i>
                         <input type="text" id="name" required
-                            class="w-full pl-12 pr-4 py-4 bg-white/50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all"
+                            class="w-full pl-12 pr-4 py-3.5 sm:py-4 bg-white/50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all"
                             placeholder="Juan Pérez">
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                         <i data-lucide="mail"
                             class="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-slate-400 group-focus-within:text-primary transition-colors"></i>
                         <input type="email" id="email" required
-                            class="w-full pl-12 pr-4 py-4 bg-white/50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all"
+                            class="w-full pl-12 pr-4 py-3.5 sm:py-4 bg-white/50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all"
                             placeholder="ejemplo@correo.com">
                     </div>
                 </div>
@@ -77,7 +77,7 @@
                         <i data-lucide="lock"
                             class="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-slate-400 group-focus-within:text-primary transition-colors"></i>
                         <input type="password" id="password" required
-                            class="w-full pl-12 pr-4 py-4 bg-white/50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all"
+                            class="w-full pl-12 pr-4 py-3.5 sm:py-4 bg-white/50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all"
                             placeholder="••••••••">
                     </div>
                 </div>
@@ -85,13 +85,13 @@
                 <div id="error-msg" class="text-red-500 text-sm font-bold text-center hidden"></div>
 
                 <button type="submit"
-                    class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-2xl shadow-xl shadow-primary/30 transition-all active:scale-95 flex items-center justify-center gap-3">
+                    class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3.5 sm:py-4 rounded-2xl shadow-xl shadow-primary/30 transition-all active:scale-95 flex items-center justify-center gap-3">
                     <i data-lucide="user-plus" class="size-5"></i>
                     Crear mi Cuenta
                 </button>
             </form>
 
-            <div class="mt-8 pt-8 border-t border-slate-100 flex flex-col items-center">
+            <div class="mt-7 sm:mt-8 pt-7 sm:pt-8 border-t border-slate-100 flex flex-col items-center">
                 <p class="text-slate-500 text-sm font-medium">¿Ya tienes una cuenta?</p>
                 <a href="/login.html" class="mt-2 text-primary font-bold hover:underline flex items-center gap-1">
                     Inicia sesión aquí <i data-lucide="arrow-right" class="size-4"></i>

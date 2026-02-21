@@ -86,14 +86,23 @@
 
         .modal-content {
             background: white;
-            width: 100%;
+            width: 95%;
             max-width: 500px;
-            border-radius: 2.5rem;
-            overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 1.5rem;
+            margin: 1rem;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             transform: scale(0.95);
             opacity: 0;
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @media (min-width: 768px) {
+            .modal-content {
+                border-radius: 2.5rem;
+                margin: 0;
+            }
         }
 
         .modal-backdrop.active {
@@ -117,6 +126,10 @@
 
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
+        }
+
+        .safe-bottom {
+            padding-bottom: calc(6rem + env(safe-area-inset-bottom));
         }
 
         @media (max-width: 768px) {
@@ -181,7 +194,7 @@
     <!-- Main Content -->
     <main class="flex-1 min-w-0">
         <!-- Header / Breadcrumbs -->
-        <header class="bg-white px-8 py-6 flex items-center justify-between border-b border-slate-100">
+        <header class="bg-white px-4 md:px-8 py-4 md:py-6 flex items-center justify-between border-b border-slate-100">
             <div class="flex items-center gap-3 text-slate-500 text-sm font-semibold">
                 <button onclick="history.back()"
                     class="bg-primary size-7 rounded-full flex items-center justify-center text-white">
@@ -205,23 +218,23 @@
         </header>
 
         <!-- Events Dashboard Content -->
-        <div class="p-8 space-y-8">
+        <div class="p-4 md:p-8 space-y-8 safe-bottom md:pb-8">
             <!-- Welcome Message -->
-            <div class="text-center space-y-2 py-4">
-                <h2 class="text-3xl font-bold text-primary italic">¡Bienvenid@ de vuelta, <span
+            <div class="text-center space-y-2 py-4 px-4">
+                <h2 class="text-2xl md:text-3xl font-bold text-primary italic">¡Bienvenid@ de vuelta, <span
                         id="user-display-name">...</span>!</h2>
-                <p class="text-slate-500 font-medium">Gestiona y organiza todos tus eventos fotográficos desde un solo
+                <p class="text-sm md:text-base text-slate-500 font-medium px-2">Gestiona y organiza todos tus eventos fotográficos desde un solo
                     lugar.</p>
             </div>
 
             <!-- Upcoming Events Section -->
             <section class="space-y-4">
                 <div class="flex items-center gap-2">
-                    <i data-lucide="calendar" class="text-primary size-6"></i>
-                    <h3 class="text-2xl font-bold text-slate-800">Próximos eventos</h3>
+                    <i data-lucide="calendar" class="text-primary size-5 md:size-6"></i>
+                    <h3 class="text-xl md:text-2xl font-bold text-slate-800">Próximos eventos</h3>
                 </div>
-                <div id="upcoming-events-list" class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
-                    <p class="text-slate-400 font-medium text-center py-4">No se encontraron eventos próximos. <span
+                <div id="upcoming-events-list" class="bg-white p-4 md:p-8 rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm">
+                    <p class="text-slate-400 font-medium text-center py-4 text-sm">No se encontraron eventos próximos. <span
                             class="text-primary font-bold cursor-pointer" onclick="openModal()">¡Crea uno para
                             empezar!</span></p>
                 </div>
@@ -229,29 +242,29 @@
 
             <!-- My Events Section -->
             <section class="space-y-4">
-                <div class="flex items-center justify-between">
-                    <h3 class="text-2xl font-bold text-slate-800">Mis Eventos</h3>
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <h3 class="text-xl md:text-2xl font-bold text-slate-800">Mis Eventos</h3>
                     <button onclick="openModal()"
-                        class="bg-primary hover:bg-primary/90 text-white font-bold px-6 py-3 rounded-2xl flex items-center gap-2 shadow-lg shadow-primary/20 transition-all active:scale-95">
-                        <i data-lucide="plus-circle" class="size-5"></i>
+                        class="bg-primary hover:bg-primary/90 text-white font-bold px-4 py-2 md:px-6 md:py-3 rounded-xl md:rounded-2xl flex items-center gap-2 shadow-lg shadow-primary/20 transition-all active:scale-95 text-sm">
+                        <i data-lucide="plus-circle" class="size-4 md:size-5"></i>
                         Crear evento
                     </button>
                 </div>
-                <div id="all-events-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div id="all-events-list" class="grid grid-cols-1 gap-4 md:gap-6">
                     <div
-                        class="bg-white p-12 rounded-3xl border border-slate-100 shadow-sm text-center md:col-span-full">
-                        <p class="text-slate-400 font-medium italic">Todavía no tienes eventos</p>
+                        class="bg-white p-6 md:p-12 rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm text-center">
+                        <p class="text-slate-400 font-medium italic text-sm">Todavía no tienes eventos</p>
                     </div>
                 </div>
             </section>
 
             <!-- News Section -->
             <section class="space-y-4">
-                <h3 class="text-2xl font-bold text-primary italic">Novedades</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <h3 class="text-xl md:text-2xl font-bold text-primary italic">Novedades</h3>
+                <div class="grid grid-cols-1 gap-4">
                     <!-- Placeholder cards for news style -->
-                    <div class="bg-slate-100 h-40 rounded-3xl animate-pulse"></div>
-                    <div class="bg-slate-100 h-40 rounded-3xl animate-pulse"></div>
+                    <div class="bg-slate-100 h-32 md:h-40 rounded-2xl md:rounded-3xl animate-pulse"></div>
+                    <div class="bg-slate-100 h-32 md:h-40 rounded-2xl md:rounded-3xl animate-pulse"></div>
                 </div>
             </section>
         </div>
@@ -259,7 +272,8 @@
 
     <!-- Mobile Navigation -->
     <nav
-        class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 p-4 flex justify-around items-center z-50">
+        class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-100 p-4 flex justify-around items-center z-50"
+        style="padding-bottom: calc(1rem + env(safe-area-inset-bottom));">
         <a href="/guest.html" class="text-slate-400 flex flex-col items-center gap-1">
             <i data-lucide="user" class="size-6"></i>
             <span class="text-[10px] font-bold uppercase">Perfil</span>
@@ -294,23 +308,23 @@
             </div>
 
             <!-- Modal Body -->
-            <form id="new-event-form" class="p-8 space-y-6">
+            <form id="new-event-form" class="p-4 md:p-8 space-y-4 md:space-y-6">
                 <div class="space-y-2">
                     <label class="block text-sm font-semibold text-slate-700 ml-1">Nombre del evento</label>
                     <input type="text" id="event-name" required placeholder="Ej: Boda de Ana y Luis"
-                        class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400 font-medium">
+                        class="w-full px-4 py-3 md:px-5 md:py-4 bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all placeholder:text-slate-400 font-medium text-sm">
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="space-y-2">
                         <label class="block text-sm font-semibold text-slate-700 ml-1">Fecha del evento</label>
                         <input type="date" id="event-date" required
-                            class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium text-slate-600">
+                            class="w-full px-4 py-3 md:px-5 md:py-4 bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium text-slate-600 text-sm">
                     </div>
                     <div class="space-y-2">
                         <label class="block text-sm font-semibold text-slate-700 ml-1">Hora del evento</label>
                         <input type="time" id="event-time" required
-                            class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium text-slate-600">
+                            class="w-full px-4 py-3 md:px-5 md:py-4 bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium text-slate-600 text-sm">
                     </div>
                 </div>
 
@@ -318,7 +332,7 @@
                     <label class="block text-sm font-semibold text-slate-700 ml-1">Categoría</label>
                     <div class="relative">
                         <select id="event-category" required
-                            class="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium text-slate-600 appearance-none">
+                            class="w-full px-4 py-3 md:px-5 md:py-4 bg-slate-50 border border-slate-100 rounded-xl md:rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-medium text-slate-600 appearance-none text-sm">
                             <option value="" disabled selected>Seleccionar categoría</option>
                             <option value="wedding">Boda</option>
                             <option value="birthday">XV Años / Cumpleaños</option>
@@ -326,18 +340,17 @@
                             <option value="session">Sesión Fotográfica</option>
                             <option value="other">Otro</option>
                         </select>
-                        <i data-lucide="chevron-down"
-                            class="absolute right-4 top-1/2 -translate-y-1/2 size-5 text-slate-400 pointer-events-none"></i>
+                        <i data-lucide="chevron-down" class="absolute right-4 top-1/2 -translate-y-1/2 size-4 md:size-5 text-slate-400 pointer-events-none"></i>
                     </div>
                 </div>
 
-                <div class="flex items-center gap-3 pt-4">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-4">
                     <button type="button" onclick="closeModal()"
-                        class="flex-1 py-4 text-slate-500 font-bold hover:bg-slate-50 rounded-2xl transition-colors">
+                        class="flex-1 py-3 md:py-4 text-slate-500 font-bold hover:bg-slate-50 rounded-xl md:rounded-2xl transition-colors text-sm">
                         Cancelar
                     </button>
                     <button type="submit"
-                        class="flex-1 py-4 bg-primary text-white font-bold rounded-2xl shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all active:scale-95">
+                        class="flex-1 py-3 md:py-4 bg-primary text-white font-bold rounded-xl md:rounded-2xl shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all active:scale-95 text-sm">
                         Crear Evento
                     </button>
                 </div>
@@ -549,4 +562,7 @@
 </body>
 
 </html>
+
+
+
 

@@ -175,7 +175,8 @@
     </main>
     <!-- Bottom Navigation Bar -->
     <nav
-        class="fixed bottom-0 left-0 right-0 glass-effect border-t border-slate-100 pb-8 pt-2 px-6 flex justify-between items-center z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+        class="fixed bottom-0 left-0 right-0 glass-effect border-t border-slate-100 pb-8 pt-2 px-6 flex justify-between items-center z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]"
+        style="padding-bottom: calc(2rem + env(safe-area-inset-bottom));">
         <a class="flex flex-col items-center gap-1 group" href="#">
             <div
                 class="bg-primary text-white p-2 rounded-full shadow-lg shadow-primary/30 transition-transform group-hover:scale-110">
@@ -218,7 +219,7 @@
         const loadPending = async () => {
             const res = await fetch('/api/media?status=pending');
             const items = await res.json();
-            queue.innerHTML = '';
+            pendingItemsGrid.innerHTML = '';
             items.forEach(addItemToQueue);
             // updateStats(); // Removed as stats are updated via socket
         };
@@ -253,8 +254,16 @@
                 </div>
             </div>
         `;
-            queue.prepend(div);
+            pendingItemsGrid.prepend(div);
         };
+
+        function approveItem(id) {
+            moderate(id, 'approved');
+        }
+
+        function rejectItem(id) {
+            moderate(id, 'rejected');
+        }
 
         const moderate = async (id, status) => {
             const response = await fetch(`/api/moderate/${id}`, {
@@ -265,13 +274,11 @@
             if (response.ok) {
                 const el = document.getElementById(`item-${id}`);
                 if (el) el.remove();
-                updateStats();
             }
         };
 
         socket.on('new_pending_item', (item) => {
             addItemToQueue(item);
-            updateStats();
         });
 
         loadPending();
