@@ -217,6 +217,7 @@ app.put('/api/update-profile', async (req, res) => {
 app.post('/api/events', async (req, res) => {
     try {
         const { userId, name, date, time, category } = req.body;
+        if (!db) return res.status(500).json({ message: 'Base de datos Firebase no inicializada' });
         if (!userId) return res.status(400).json({ message: 'User ID is required' });
 
         const eventData = {
@@ -238,6 +239,7 @@ app.post('/api/events', async (req, res) => {
 
 app.get('/api/events/:userId', async (req, res) => {
     try {
+        if (!db) return res.status(500).json({ message: 'Base de datos Firebase no inicializada' });
         const { userId } = req.params;
         const snapshot = await db.collection('events')
             .where('user_id', '==', userId)
@@ -253,6 +255,60 @@ app.get('/api/events/:userId', async (req, res) => {
     } catch (err) {
         console.error('Error en GET /api/events:', err);
         res.status(500).json({ message: 'Error al obtener eventos' });
+    }
+});
+
+app.put('/api/events/:eventId', async (req, res) => {
+    try {
+        if (!db) return res.status(500).json({ message: 'Base de datos Firebase no inicializada' });
+        const { eventId } = req.params;
+        const { userId, name, date, time, category } = req.body;
+
+        if (!userId) return res.status(400).json({ message: 'User ID is required' });
+
+        const ref = db.collection('events').doc(eventId);
+        const doc = await ref.get();
+        if (!doc.exists) return res.status(404).json({ message: 'Evento no encontrado' });
+
+        const current = doc.data();
+        if (current.user_id !== userId) return res.status(403).json({ message: 'No autorizado' });
+
+        const updateData = {
+            name,
+            date,
+            time,
+            category,
+            updated_at: admin.firestore.FieldValue.serverTimestamp()
+        };
+
+        await ref.update(updateData);
+        res.json({ id: eventId, ...current, ...updateData });
+    } catch (err) {
+        console.error('Error en PUT /api/events/:eventId:', err);
+        res.status(500).json({ message: 'Error al actualizar evento' });
+    }
+});
+
+app.delete('/api/events/:eventId', async (req, res) => {
+    try {
+        if (!db) return res.status(500).json({ message: 'Base de datos Firebase no inicializada' });
+        const { eventId } = req.params;
+        const { userId } = req.body;
+
+        if (!userId) return res.status(400).json({ message: 'User ID is required' });
+
+        const ref = db.collection('events').doc(eventId);
+        const doc = await ref.get();
+        if (!doc.exists) return res.status(404).json({ message: 'Evento no encontrado' });
+
+        const current = doc.data();
+        if (current.user_id !== userId) return res.status(403).json({ message: 'No autorizado' });
+
+        await ref.delete();
+        res.json({ message: 'Evento eliminado', id: eventId });
+    } catch (err) {
+        console.error('Error en DELETE /api/events/:eventId:', err);
+        res.status(500).json({ message: 'Error al eliminar evento' });
     }
 });
 
